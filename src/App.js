@@ -1,22 +1,23 @@
 import './App.css';
-import React from 'react';
-import Button1 from './components/Button1';
-import Button2 from './components/Button2';
-import styled from 'styled-components';
+import React,{ useState } from 'react';
+import TodoList from './components/TodoList/TodoList';
+import Header from './components/Header/Header';
+import { DarkModeProvider } from './context/DarkModeContext';
 
-const Container = styled.div`
-  display: flex;
-`
-
+const filters = ['all', 'active', 'completed'];
 
 function App() {
+  const [filter, setFilter] = useState(filters[0]);
+
   return (
-    <>
-      <Button1 />
-      <Button2 />
-      <Container></Container>
-    </>
-  );
+    <DarkModeProvider>
+      <Header 
+        filter={filter} 
+        filters={filters} 
+        onFilterChange={ (filter) => setFilter(filter) }/>
+      <TodoList filter={filter} />
+    </DarkModeProvider> 
+  ); 
 }
 
 export default App;
